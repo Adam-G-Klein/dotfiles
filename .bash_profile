@@ -1,0 +1,20 @@
+if [ -r ~/.bashrc ]; then
+	source ~/.bashrc
+fi
+alias gits="git status"
+alias gitcam="git commit --amend"
+alias gitcm="git commit -m"
+alias gitc="git commit"
+alias gita="git add"
+alias gitpom="git push origin master"
+alias gitpo="git push origin"
+alias gitp="git push"
+alias gitc="git commit"
+alias gitl="git log"
+alias gitlg="git log --oneline --decorate --color --graph"
+alias gitrbi="git rebase -i"
+alias gitrbc="git rebase --continue"
+alias gitchb="git checkout -b"
+alias gitch="git checkout"
+alias gitchm="git checkout master"
+alias lsalias="cat ~/.bash_profile"
