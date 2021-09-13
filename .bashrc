@@ -1,7 +1,7 @@
 set -o vi
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedcbcgcded
-alias sd='ssh agklein.aka.corp.amazon.com'
+alias sd='ssh dev-dsk-agklein-2a-c985466e.us-west-2.amazon.com'
 alias gits='git status'
 alias bb='brazil-build'
 alias gca='git commit --amend'
