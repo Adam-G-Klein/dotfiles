@@ -1,14 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+source /apollo/env/envImprovement/var/zshrc
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/agklein/.oh-my-zsh"
+export ZSH="/home/agklein/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="cloud"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -99,6 +100,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 source ~/.bash_profile
 source ~/.bashrc
+bindkey "^[OH" beginning-of-line
+bindkey "^[OF" end-of-line
 alias gits="git status"
 alias gitcam="git commit --amend"
 alias gitcm="git commit -m"
@@ -117,15 +120,32 @@ alias gitch="git checkout"
 alias gitchm="git checkout master"
 alias lsalias="cat ~/.bash_profile"
 
-alias platset="brazil ws use --platform AL2012"
+alias platset2012="brazil ws use --platform AL2012"
+alias platset2="brazil ws use --platform AL2_x86_64"
+alias platsetRHEL="brazil ws use --platform RHEL5_64"
 alias cachereset="brazil-package-cache disable_edge_cache && brazil-package-cache enable_edge_cache && brazil-package-cache start"
 alias credstunnel="ssh -f -N -L 2009:127.0.0.1:2009 agklein.aka.corp.amazon.com"
 alias cacheclean-yes-im-sure="brazil-package-cache clean --days 0 --keepCacheHours 0"
 alias nodeclean="rm -rf node_modules && bb clean && bb"
-alias so="kinit -f && mwinit -o"
+alias so="kinit -f && mwinit -o -s"
 alias cb="cd /Volumes/workplace"
 
+alias gokc="cd ~/kcia/kcpow/src/KindleContentPolicyOpsWebsite/"
+alias full-rebuild="brazil-build clean && brazil-build"
 alias bb=brazil-build
+alias bw="brazil ws"
+alias bwvs="brazil ws --use -vs"
+alias bwp="brazil ws --use -p"
+alias bwc="brazil ws --create --name"
+alias bwsh="brazil ws show"
+alias bwsy="brazil ws --sync -md"
+alias brc="brazil-recursive-cmd-parallel"
+alias register_with_aaa=/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py
+alias rega="/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py -a"
+alias regakc="/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py -a KindleContentPolicyOpsWebsite"
+alias kccreds="ada credentials update --account=571559346954 --provider=conduit --role=jprv-CloudAuth-ApiGateway-AccessRole"
+
+
 
 export PATH="/apollo/env/SDETools/bin:$PATH"
 export PATH="$HOME/.toolbox/bin:$PATH"
@@ -149,4 +169,4 @@ infraUpdate(){
     #cd ../ForgePrivacyIPXInfraCDK && git stash && git pull && rm -rf node_modules 
     echo "infraUpdate: replacing content of .env file with agklein"
     sed -i -e 's/srabara/agklein/g' .env
-}  
+} 
