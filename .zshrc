@@ -123,7 +123,7 @@ alias lsalias="cat ~/.bash_profile"
 alias platset2012="brazil ws use --platform AL2012"
 alias platset2="brazil ws use --platform AL2_x86_64"
 alias platsetRHEL="brazil ws use --platform RHEL5_64"
-alias cachereset="brazil-package-cache disable_edge_cache && brazil-package-cache enable_edge_cache && brazil-package-cache start"
+alias cachereset="brazil-package-cache stop && brazil-package-cache start"
 alias credstunnel="ssh -f -N -L 2009:127.0.0.1:2009 agklein.aka.corp.amazon.com"
 alias cacheclean-yes-im-sure="brazil-package-cache clean --days 0 --keepCacheHours 0"
 alias nodeclean="rm -rf node_modules && bb clean && bb"
@@ -140,7 +140,10 @@ alias bwc="brazil ws --create --name"
 alias bwsh="brazil ws show"
 alias bwsy="brazil ws --sync -md"
 alias brc="brazil-recursive-cmd-parallel"
+alias b1click="sudo rm -rf /apollo/env/KCPOW2/var/output/logs/* && bb clean && bb && brazil workspace env update --alias KCPOW2 --activate"
+alias b1clickact="bb clean && bb && brazil workspace env update --alias KCPOW2 --activate"
 alias register_with_aaa=/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py
+alias webdevConfigure=/apollo/env/MallomarDeveloperTools/bin/webdev-configure.pl
 alias rega="/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py -a"
 alias regakc="/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py -a KindleContentPolicyOpsWebsite"
 alias kccreds="ada credentials update --account=571559346954 --provider=conduit --role=jprv-CloudAuth-ApiGateway-AccessRole"
@@ -154,6 +157,21 @@ export AWS_ACCESS_KEY_ID="omit"
 export AWS_SECRET_ACCESS_KEY="omit"
 function allSubDirs() {
     for d in ./*/ ; do /bin/zsh -c "(cd "$d" && "$@")"; done
+}
+function apolloClean() {
+    APOLLO_CLEAN_ENV=$1 ;
+    echo ------------ ;
+    echo Running: rm /apollo/env/$APOLLO_CLEAN_ENV* ; 
+    sudo          rm /apollo/env/$APOLLO_CLEAN_ENV* ; 
+    echo Running: rm -r /apollo/_env/$APOLLO_CLEAN_ENV* ; 
+    sudo          rm -r /apollo/_env/$APOLLO_CLEAN_ENV* ; 
+    echo Running: rm -r /apollo/var/env/$APOLLO_CLEAN_ENV* ; 
+    sudo          rm -r /apollo/var/env/$APOLLO_CLEAN_ENV* ;  
+    echo Running: rm -r /apollo/package/local_1/Generic/*$APOLLO_CLEAN_ENV* ; 
+    sudo          rm -r /apollo/package/local_1/Generic/*$APOLLO_CLEAN_ENV* ; 
+    echo Running: rm -r /apollo/package/local_1/AL2_x86_64/*$APOLLO_CLEAN_ENV*; 
+    sudo          rm -r /apollo/package/local_1/AL2_x86_64/*$APOLLO_CLEAN_ENV*;
+    echo ------------ ;
 }
 infraUpdate(){
     echo "make sure ninja-dev-sync is running!"
