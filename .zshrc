@@ -147,6 +147,8 @@ alias webdevConfigure=/apollo/env/MallomarDeveloperTools/bin/webdev-configure.pl
 alias rega="/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py -a"
 alias regakc="/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py -a KindleContentPolicyOpsWebsite"
 alias kccreds="ada credentials update --account=571559346954 --provider=conduit --role=jprv-CloudAuth-ApiGateway-AccessRole"
+alias hn="cat /proc/sys/kernel/hostname"
+alias mossy='/apollo/env/Mossy/bin/mossy'
 
 
 
@@ -161,12 +163,12 @@ function allSubDirs() {
 function apolloClean() {
     APOLLO_CLEAN_ENV=$1 ;
     echo ------------ ;
-    echo Running: rm /apollo/env/$APOLLO_CLEAN_ENV* ; 
-    sudo          rm /apollo/env/$APOLLO_CLEAN_ENV* ; 
-    echo Running: rm -r /apollo/_env/$APOLLO_CLEAN_ENV* ; 
-    sudo          rm -r /apollo/_env/$APOLLO_CLEAN_ENV* ; 
-    echo Running: rm -r /apollo/var/env/$APOLLO_CLEAN_ENV* ; 
-    sudo          rm -r /apollo/var/env/$APOLLO_CLEAN_ENV* ;  
+    echo Running: rm /apollo/env/*$APOLLO_CLEAN_ENV* ; 
+    sudo          rm /apollo/env/*$APOLLO_CLEAN_ENV* ; 
+    echo Running: rm -r /apollo/_env/*$APOLLO_CLEAN_ENV* ; 
+    sudo          rm -r /apollo/_env/*$APOLLO_CLEAN_ENV* ; 
+    echo Running: rm -r /apollo/var/env/*$APOLLO_CLEAN_ENV* ; 
+    sudo          rm -r /apollo/var/env/*$APOLLO_CLEAN_ENV* ;  
     echo Running: rm -r /apollo/package/local_1/Generic/*$APOLLO_CLEAN_ENV* ; 
     sudo          rm -r /apollo/package/local_1/Generic/*$APOLLO_CLEAN_ENV* ; 
     echo Running: rm -r /apollo/package/local_1/AL2_x86_64/*$APOLLO_CLEAN_ENV*; 
