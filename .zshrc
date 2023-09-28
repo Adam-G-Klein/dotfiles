@@ -1,15 +1,14 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-source /apollo/env/envImprovement/var/zshrc
 # Path to your oh-my-zsh installation.
-export ZSH="/home/agklein/.oh-my-zsh"
+export ZSH="/Users/agklein/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="cloud"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -116,22 +115,19 @@ alias gitlg="git log --oneline --decorate --color --graph"
 alias gitrbi="git rebase -i"
 alias gitrbc="git rebase --continue"
 alias gitchb="git checkout -b"
+alias gitbrls="git branch -a"
 alias gitch="git checkout"
 alias gitchm="git checkout master"
 alias lsalias="cat ~/.bash_profile"
 
-alias platset2012="brazil ws use --platform AL2012"
-alias platset2="brazil ws use --platform AL2_x86_64"
-alias platsetRHEL="brazil ws use --platform RHEL5_64"
+alias platset="brazil ws use --platform AL2012"
 alias cachereset="brazil-package-cache disable_edge_cache && brazil-package-cache enable_edge_cache && brazil-package-cache start"
 alias credstunnel="ssh -f -N -L 2009:127.0.0.1:2009 agklein.aka.corp.amazon.com"
 alias cacheclean-yes-im-sure="brazil-package-cache clean --days 0 --keepCacheHours 0"
 alias nodeclean="rm -rf node_modules && bb clean && bb"
-alias so="kinit -f && mwinit -o -s"
+alias so="kinit -f && ssh-keygen -t ecdsa && mwinit --ssh-public-key ~/.ssh/id_ecdsa.pub && mwinit -o -s "
 alias cb="cd /Volumes/workplace"
 
-alias gokc="cd ~/kcia/kcpow/src/KindleContentPolicyOpsWebsite/"
-alias full-rebuild="brazil-build clean && brazil-build"
 alias bb=brazil-build
 alias bw="brazil ws"
 alias bwvs="brazil ws --use -vs"
@@ -139,11 +135,10 @@ alias bwp="brazil ws --use -p"
 alias bwc="brazil ws --create --name"
 alias bwsh="brazil ws show"
 alias bwsy="brazil ws --sync -md"
-alias brc="brazil-recursive-cmd-parallel"
-alias register_with_aaa=/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py
-alias rega="/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py -a"
-alias regakc="/apollo/env/AAAWorkspaceSupport/bin/register_with_aaa.py -a KindleContentPolicyOpsWebsite"
-alias kccreds="ada credentials update --account=571559346954 --provider=conduit --role=jprv-CloudAuth-ApiGateway-AccessRole"
+alias workplacegits="for d in ./*/ ; do (for s in ./"$d"/src/* ; do (cd "$s" && git status) ; done) ; done"
+alias gom="cd /Users/agklein/workplace/monolith/src/Goodreads"
+alias goac="cd /Users/agklein/workplace/aurora/src/GoodreadsAuroraCDK"
+alias gop="cd /Users/agklein/workplace/prototypeAurora/src/GoodreadsAurora-PrototypeCDK"
 
 
 
@@ -155,6 +150,27 @@ export AWS_SECRET_ACCESS_KEY="omit"
 function allSubDirs() {
     for d in ./*/ ; do /bin/zsh -c "(cd "$d" && "$@")"; done
 }
+sshForward() {
+ssh -o ProxyCommand=none -T -N -L $1\:localhost\:$2 dev-dsk-agklein-2a-c985466e.us-west-2.amazon.com        
+
+}
+
+alias forward=sshForward
+function apolloClean() {
+APOLLO_CLEAN_ENV=$1 ;
+echo ------------ ;
+echo Running: rm /apollo/env/$APOLLO_CLEAN_ENV ; 
+sudo          rm /apollo/env/$APOLLO_CLEAN_ENV ; 
+echo Running: rm -r /apollo/_env/$APOLLO_CLEAN_ENV-swit1na.* ; 
+sudo          rm -r /apollo/_env/$APOLLO_CLEAN_ENV-swit1na.* ; 
+echo Running: rm -r /apollo/var/env/$APOLLO_CLEAN_ENV ; 
+sudo          rm -r /apollo/var/env/$APOLLO_CLEAN_ENV ;  
+echo Running: rm -r /apollo/package/local_1/Generic/$APOLLO_CLEAN_ENV ; 
+sudo          rm -r /apollo/package/local_1/Generic/$APOLLO_CLEAN_ENV ; 
+echo Running: rm -r /apollo/package/local_1/Linux-2.6c2.5-x86_64/$APOLLO_CLEAN_ENV; 
+sudo          rm -r /apollo/package/local_1/Linux-2.6c2.5-x86_64/$APOLLO_CLEAN_ENV;
+echo ------------ ;} 
+
 infraUpdate(){
     echo "make sure ninja-dev-sync is running!"
     echo "infraUpdate: ws sync"
@@ -169,4 +185,15 @@ infraUpdate(){
     #cd ../ForgePrivacyIPXInfraCDK && git stash && git pull && rm -rf node_modules 
     echo "infraUpdate: replacing content of .env file with agklein"
     sed -i -e 's/srabara/agklein/g' .env
-} 
+}  
+export WORKPLACE=/home/agklein/goodreads/
+export GOODREADS_RAILS_ROOT=$WORKPLACE/monolith/src/Goodreads/rails-root
+. $GOODREADS_RAILS_ROOT/script/platform/aliases.sh
+alias zst='clear; cd $GOODREADS_RAILS_ROOT; zeus start'
+. $GOODREADS_RAILS_ROOT/script/platform/aliases.sh 
+
+alias goeip='cd /Users/agklein/workplace/eipd/src/ElasticIPDestroyer'
+
+export SIRIUS_ROOT='/path/to/GoodreadsSirius/project'
+alias codeartifact_login='export AWS_CONFIG_FILE=$SIRIUS_ROOT/.aws/config && aws goshawk get-login --package-manager npm --domain-name amazon --repository-name goodreads --execute --region us-west-2'
+alias sirius='cd $SIRIUS_ROOT && codeartifact_login && source env.sh && cd -'
